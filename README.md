@@ -17,17 +17,17 @@ Just open the app and start tracking. ✨
 - 🏷️ Expense Categories — Food, Travel, Shopping, Bills, Entertainment, Health and Other.
 - 📊 Weekly Spending Chart — Visualize your spending throughout the week.
 - 🧾 Recent Expenses — View your latest transactions.
-- 🗑️ Delete Expenses — Remove individual transactions whenever needed.
+- 🗑️ Delete Expenses — Remove individual transactions.
 - 💾 Local Storage — Expenses are automatically saved in your browser.
 - 📱 Responsive Design — Works on phones, tablets and desktops.
-- 🌐 Offline Friendly — No backend or internet connection is required after loading the app.
+- 🌐 Offline Friendly — No backend required.
 - ⚡ Lightweight — Built with vanilla HTML, CSS and JavaScript.
 
 ---
 
 🎨 Design
 
-Daily Expense focuses on a clean and minimal interface rather than overwhelming the user with unnecessary features.
+Daily Expense focuses on a clean and minimal interface without unnecessary complexity.
 
 Design highlights
 
@@ -48,7 +48,7 @@ HTML5| Application structure
 CSS3| UI, responsive design & styling
 JavaScript| Application logic
 LocalStorage API| Saving expenses locally
-HTML5 Date & Number APIs| Dates and currency formatting
+HTML5 APIs| Dates and currency formatting
 
 No frameworks or external libraries are required.
 
@@ -61,23 +61,21 @@ Daily-Expense/
 ├── index.html
 └── README.md
 
-The entire application currently runs from a single HTML file.
+The application runs from a single HTML file.
 
 ---
 
 🚀 Getting Started
 
-1. Clone the repository
+Clone the repository
 
 git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
 
-2. Open the project
+Open the project
 
 cd YOUR-REPOSITORY
 
-3. Run the app
-
-You can simply open:
+Then open:
 
 index.html
 
@@ -87,7 +85,7 @@ in your browser.
 
 🖥️ Run With a Local Server
 
-If you want to run it through a local server, you can use Python:
+Using Python:
 
 python -m http.server 8080
 
@@ -99,13 +97,13 @@ http://localhost:8080
 
 📱 Termux
 
-You can also run Daily Expense directly from Android using Termux.
+You can run Daily Expense directly on Android using Termux.
 
 Install Python:
 
 pkg install python
 
-Navigate to the project folder:
+Navigate to your project:
 
 cd ~/storage/downloads
 
@@ -123,15 +121,11 @@ http://localhost:8080
 
 Daily Expense uses the browser's LocalStorage API.
 
-Your expenses are stored locally on the device/browser:
-
 Browser
    ↓
 LocalStorage
    ↓
 Daily Expense Data
-
-There is currently no external database or server.
 
 This means:
 
@@ -140,13 +134,11 @@ This means:
 - ✅ Fast and lightweight
 - ✅ Works offline
 - ⚠️ Clearing browser/site data can remove saved expenses
-- ⚠️ Data is not automatically synchronized between devices
+- ⚠️ Data isn't synchronized between devices
 
 ---
 
 📊 Expense Categories
-
-The app currently supports:
 
 🍔 Food
 🚕 Travel
@@ -160,8 +152,6 @@ The app currently supports:
 
 🔮 Future Improvements
 
-Possible features for future versions:
-
 - 🌙 AMOLED Dark Mode
 - 📈 Advanced analytics
 - 📊 Monthly & yearly charts
@@ -170,8 +160,8 @@ Possible features for future versions:
 - 💰 Income tracking
 - 🎯 Monthly budgets
 - 🔔 Budget alerts
-- 📤 Export to CSV
-- 📄 Generate PDF reports
+- 📤 CSV export
+- 📄 PDF reports
 - ☁️ Cloud synchronization
 - 👤 User accounts
 - 🔐 PIN / biometric lock
@@ -183,9 +173,9 @@ Possible features for future versions:
 
 🔒 Privacy
 
-Daily Expense is designed with a local-first approach.
+Daily Expense follows a local-first approach.
 
-Your expense information is stored in your browser using LocalStorage and is not sent to an external server by the current version of the application.
+Your expense information is stored locally in your browser using LocalStorage and is not sent to an external server by the current version.
 
 ---
 
@@ -194,7 +184,7 @@ Your expense information is stored in your browser using LocalStorage and is not
 Contributions, ideas and improvements are welcome.
 
 1. Fork the repository
-2. Create a new branch
+2. Create a branch
 
 git checkout -b feature/new-feature
 
@@ -215,15 +205,19 @@ git push origin feature/new-feature
 
 If you find Daily Expense useful, consider giving the repository a ⭐ on GitHub.
 
-It helps support the project and encourages further development.
-
 ---
 
-📄 License
+📥 Download
 
-This project is open source and available under the MIT License.
+<div align="center">💸 Get Daily Expense
 
----
+Download the app and start tracking your daily spending.
+
+"⬇️ Download Daily Expense" (./index.html)
+
+"🌐 Open Daily Expense" (./index.html)
+
+</div>---
 
 <div align="center">💸 Daily Expense
 
