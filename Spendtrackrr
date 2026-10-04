@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Expense</title>
+
+<style>
+:root{
+  --bg:#f5f6fa;
+  --card:#ffffff;
+  --text:#17181c;
+  --muted:#777b87;
+  --accent:#6c63ff;
+  --danger:#ef5350;
+  --shadow:0 14px 40px rgba(25,25,45,.08);
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,
+  "Segoe UI",sans-serif;
+  background:linear-gradient(145deg,#f7f7fb,#eef0ff);
+  color:var(--text);
+}
+
+.app{
+  max-width:520px;
+  margin:auto;
+  min-height:100vh;
+  padding:22px 16px 100px;
+}
+
+/* HEADER */
+
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+h1{
+  font-size:25px;
+  margin:0;
+  letter-spacing:-.7px;
+}
+
+.date{
+  font-size:13px;
+  color:var(--muted);
+  margin-top:4px;
+}
+
+.icon-btn{
+  border:0;
+  background:#fff;
+  width:44px;
+  height:44px;
+  border-radius:15px;
+  box-shadow:var(--shadow);
+  font-size:19px;
+  cursor:pointer;
+}
+
+/* HERO */
+
+.hero{
+  background:linear-gradient(135deg,#211d4d,#6c63ff);
+  color:#fff;
+  border-radius:28px;
+  padding:24px;
+  box-shadow:0 20px 45px rgba(108,99,255,.25);
+  margin-bottom:16px;
+}
+
+.hero small{
+  opacity:.72;
+}
+
+.balance{
+  font-size:38px;
+  font-weight:750;
+  margin:7px 0 18px;
+  letter-spacing:-1.5px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.stat{
+  background:rgba(255,255,255,.13);
+  padding:12px 13px;
+  border-radius:17px;
+}
+
+.stat span{
+  display:block;
+  font-size:11px;
+  opacity:.7;
+}
+
+.stat b{
+  font-size:17px;
+}
+
+/* CARDS */
+
+.card{
+  background:rgba(255,255,255,.9);
+  border-radius:23px;
+  padding:18px;
+  box-shadow:var(--shadow);
+  margin-bottom:16px;
+}
+
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:14px;
+}
+
+.section-title h2{
+  font-size:17px;
+  margin:0;
+}
+
+.section-title span{
+  font-size:12px;
+  color:var(--muted);
+}
+
+/* FORM */
+
+form{
+  display:grid;
+  gap:10px;
+}
+
+input,
+select{
+  width:100%;
+  border:1px solid #e7e7ef;
+  background:#f8f8fb;
+  padding:13px 14px;
+  border-radius:14px;
+  font:inherit;
+  outline:none;
+}
+
+input:focus,
+select:focus{
+  border-color:var(--accent);
+}
+
+.row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.add{
+  border:0;
+  background:var(--accent);
+  color:#fff;
+  padding:14px;
+  border-radius:15px;
+  font-weight:700;
+  font-size:15px;
+  cursor:pointer;
+}
+
+.add:hover{
+  opacity:.9;
+}
+
+/* CHART */
+
+.chart{
+  display:flex;
+  align-items:flex-end;
+  gap:7px;
+  height:130px;
+  padding-top:10px;
+}
+
+.bar-wrap{
+  flex:1;
+  text-align:center;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:end;
+}
+
+.bar{
+  width:100%;
+  max-width:30px;
+  margin:auto;
+  background:linear-gradient(#8d86ff,#655cff);
+  border-radius:8px 8px 4px 4px;
+  min-height:4px;
+}
+
+.bar-label{
+  font-size:10px;
+  color:var(--muted);
+  margin-top:6px;
+}
+
+/* EXPENSE LIST */
+
+.expense{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 0;
+  border-bottom:1px solid #eeeef3;
+}
+
+.expense:last-child{
+  border-bottom:0;
+}
+
+.avatar{
+  width:43px;
+  height:43px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  background:#f0efff;
+  font-size:20px;
+}
+
+.einfo{
+  flex:1;
+}
+
+.ename{
+  font-weight:650;
+  font-size:14px;
+}
+
+.ecat{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:3px;
+}
+
+.amount{
+  font-weight:750;
+}
+
+.delete{
+  border:0;
+  background:none;
+  color:#bbb;
+  font-size:20px;
+  cursor:pointer;
+}
+
+.empty{
+  text-align:center;
+  color:var(--muted);
+  padding:18px 5px;
+  font-size:14px;
+}
+
+footer{
+  text-align:center;
+  color:#a0a1ab;
+  font-size:11px;
+  margin-top:25px;
+}
+
+/* MOBILE */
+
+@media(max-width:380px){
+
+  .app{
+    padding-left:12px;
+    padding-right:12px;
+  }
+
+  .balance{
+    font-size:33px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+
+<div>
+<h1>Daily Expense</h1>
+<div class="date" id="today"></div>
+</div>
+
+<button
+class="icon-btn"
+onclick="clearAll()"
+title="Clear all">
+⌫
+</button>
+
+</header>
+
+
+<!-- TOTAL CARD -->
+
+<section class="hero">
+
+<small>Today's spending</small>
+
+<div
+class="balance"
+id="todayTotal">
+₹0
+</div>
+
+<div class="stats">
+
+<div class="stat">
+<span>This month</span>
+<b id="monthTotal">₹0</b>
+</div>
+
+<div class="stat">
+<span>Transactions</span>
+<b id="count">0</b>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ADD EXPENSE -->
+
+<section class="card">
+
+<div class="section-title">
+
+<h2>Add expense</h2>
+
+<span>Quick & simple</span>
+
+</div>
+
+
+<form id="expenseForm">
+
+<input
+id="name"
+placeholder="What did you spend on?"
+required
+maxlength="50"
+>
+
+
+<div class="row">
+
+<input
+id="amount"
+type="number"
+min="0.01"
+step="0.01"
+placeholder="Amount ₹"
+required
+>
+
+
+<select id="category">
+
+<option>Food</option>
+<option>Travel</option>
+<option>Shopping</option>
+<option>Bills</option>
+<option>Entertainment</option>
+<option>Health</option>
+<option>Other</option>
+
+</select>
+
+</div>
+
+
+<input
+id="expenseDate"
+type="date"
+required
+>
+
+
+<button class="add">
+＋ Add Expense
+</button>
+
+</form>
+
+</section>
+
+
+<!-- WEEKLY CHART -->
+
+<section class="card">
+
+<div class="section-title">
+
+<h2>Spending this week</h2>
+
+<span id="weekTotal">₹0</span>
+
+</div>
+
+<div
+class="chart"
+id="chart">
+</div>
+
+</section>
+
+
+<!-- EXPENSE HISTORY -->
+
+<section class="card">
+
+<div class="section-title">
+
+<h2>Recent expenses</h2>
+
+<span id="recentLabel"></span>
+
+</div>
+
+<div id="list"></div>
+
+</section>
+
+
+<footer>
+Your data stays in this browser • Offline ready
+</footer>
+
+</div>
+
+
+<script>
+
+/* STORAGE */
+
+const KEY = "daily_expenses_v1";
+
+let expenses =
+JSON.parse(
+localStorage.getItem(KEY) || "[]"
+);
+
+
+/* HELPERS */
+
+const $ = id =>
+document.getElementById(id);
+
+
+const icons = {
+
+Food:"🍔",
+Travel:"🚕",
+Shopping:"🛍️",
+Bills:"💡",
+Entertainment:"🎬",
+Health:"💊",
+Other:"💳"
+
+};
+
+
+const now = new Date();
+
+
+/* INITIAL DATE */
+
+$("expenseDate").value =
+localDate(now);
+
+
+$("today").textContent =
+now.toLocaleDateString(
+undefined,
+{
+weekday:"long",
+day:"numeric",
+month:"long",
+year:"numeric"
+}
+);
+
+
+/* LOCAL DATE */
+
+function localDate(date){
+
+return new Date(
+date.getTime()
+-
+date.getTimezoneOffset()*60000
+)
+.toISOString()
+.slice(0,10);
+
+}
+
+
+/* MONEY FORMAT */
+
+function money(number){
+
+return "₹" +
+Number(number)
+.toLocaleString(
+"en-IN",
+{
+maximumFractionDigits:2
+}
+);
+
+}
+
+
+/* SAVE DATA */
+
+function save(){
+
+localStorage.setItem(
+KEY,
+JSON.stringify(expenses)
+);
+
+render();
+
+}
+
+
+/* START OF WEEK */
+
+function startOfWeek(date){
+
+let x = new Date(date);
+
+let day = x.getDay();
+
+x.setDate(
+x.getDate()
+-
+(day === 0 ? 6 : day - 1)
+);
+
+x.setHours(0,0,0,0);
+
+return x;
+
+}
+
+
+/* MAIN RENDER */
+
+function render(){
+
+const today =
+localDate(new Date());
+
+const month =
+today.slice(0,7);
+
+
+const todaySum =
+expenses
+.filter(e => e.date === today)
+.reduce(
+(sum,e) => sum + e.amount,
+0
+);
+
+
+const monthSum =
+expenses
+.filter(e =>
+e.date.startsWith(month)
+)
+.reduce(
+(sum,e) => sum + e.amount,
+0
+);
+
+
+$("todayTotal").textContent =
+money(todaySum);
+
+
+$("monthTotal").textContent =
+money(monthSum);
+
+
+$("count").textContent =
+expenses.length;
+
+
+renderChart();
+
+renderList();
+
+}
+
+
+/* CHART */
+
+function renderChart(){
+
+const start =
+startOfWeek(new Date());
+
+
+const days = [];
+
+
+for(let i=0;i<7;i++){
+
+let d =
+new Date(start);
+
+d.setDate(
+start.getDate()+i
+);
+
+days.push(d);
+
+}
+
+
+const values =
+days.map(d =>
+
+expenses
+.filter(
+e => e.date === localDate(d)
+)
+.reduce(
+(sum,e) => sum + e.amount,
+0
+)
+
+);
+
+
+const max =
+Math.max(...values,1);
+
+
+const total =
+values.reduce(
+(a,b) => a+b,
+0
+);
+
+
+$("weekTotal").textContent =
+money(total);
+
+
+$("chart").innerHTML =
+
+days.map((day,i) => `
+
+<div class="bar-wrap">
+
+<div
+class="bar"
+style="
+height:${Math.max(
+values[i]/max*88,
+4
+)}px
+"
+title="${money(values[i])}">
+</div>
+
+<div class="bar-label">
+${day.toLocaleDateString(
+undefined,
+{
+weekday:"short"
+}
+).slice(0,3)}
+</div>
+
+</div>
+
+`).join("");
+
+}
+
+
+/* EXPENSE LIST */
+
+function renderList(){
+
+const sorted =
+[...expenses]
+.sort(
+(a,b) => b.created-a.created
+)
+.slice(0,12);
+
+
+$("recentLabel").textContent =
+expenses.length + " total";
+
+
+if(!sorted.length){
+
+$("list").innerHTML = `
+
+<div class="empty">
+
+No expenses yet.<br>
+
+Add your first expense above ✨
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+$("list").innerHTML =
+
+sorted.map(e => `
+
+<div class="expense">
+
+<div class="avatar">
+${icons[e.category] || "💳"}
+</div>
+
+
+<div class="einfo">
+
+<div class="ename">
+${escapeHtml(e.name)}
+</div>
+
+<div class="ecat">
+
+${e.category}
+•
+${formatDate(e.date)}
+
+</div>
+
+</div>
+
+
+<div class="amount">
+
+${money(e.amount)}
+
+</div>
+
+
+<button
+class="delete"
+onclick="removeExpense('${e.id}')"
+aria-label="Delete">
+
+×
+
+</button>
+
+</div>
+
+`).join("");
+
+}
+
+
+/* DATE FORMAT */
+
+function formatDate(date){
+
+return new Date(
+date + "T00:00:00"
+)
+.toLocaleDateString(
+undefined,
+{
+day:"numeric",
+month:"short"
+}
+);
+
+}
+
+
+/* SECURITY */
+
+function escapeHtml(text){
+
+return text.replace(
+/[&<>"']/g,
+character => ({
+
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
+
+}[character])
+);
+
+}
+
+
+/* ADD EXPENSE */
+
+$("expenseForm")
+.addEventListener(
+"submit",
+function(event){
+
+event.preventDefault();
+
+
+const expense = {
+
+id:
+crypto.randomUUID
+?
+crypto.randomUUID()
+:
+Date.now()+"",
+
+name:
+$("name").value.trim(),
+
+amount:
+Number($("amount").value),
+
+category:
+$("category").value,
+
+date:
+$("expenseDate").value,
+
+created:
+Date.now()
+
+};
+
+
+expenses.push(expense);
+
+
+this.reset();
+
+
+$("expenseDate").value =
+localDate(new Date());
+
+
+save();
+
+}
+);
+
+
+/* DELETE EXPENSE */
+
+function removeExpense(id){
+
+expenses =
+expenses.filter(
+expense =>
+expense.id !== id
+);
+
+save();
+
+}
+
+
+/* DELETE EVERYTHING */
+
+function clearAll(){
+
+if(!expenses.length){
+
+return;
+
+}
+
+
+if(
+confirm(
+"Delete all saved expenses?"
+)
+){
+
+expenses = [];
+
+save();
+
+}
+
+}
+
+
+/* START */
+
+render();
+
+</script>
+
+</body>
+</html>
